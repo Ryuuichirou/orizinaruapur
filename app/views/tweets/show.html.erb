@@ -1,0 +1,47 @@
+<main class="main">
+  <div class="inner">
+    <div class="tweet__wrapper">
+      <p class="tweet__hedding">
+        <%= @tweet.title %>
+      </p>
+      <%= link_to @tweet.user.name, user_path(@tweet.user_id), class: :tweet__user %>
+      <% if user_signed_in? && current_user.id == @tweet.user_id %>
+        <div class="tweet__manage">
+          <%= link_to "編集する", edit_tweet_path, class: :tweet__btn %>
+          <%= link_to "削除する", tweet_path, method: :delete, class: :tweet__btn %>
+        </div>
+      <% end %>
+      <div class="tweet__image">
+        <%= image_tag @tweet.image %>
+      </div>
+        <div class="tweet__detail">
+          <p class="detail__title"></p>
+          <p class="detail__message">
+            <%= @tweet.concept %>
+          </p>
+        </div>
+      </div>
+      <div class="tweet__comments">
+        <%if user_signed_in?%>
+          <%= form_with(model: [@tweet, @comment], local: true) do |f| %>
+            <div class="field">
+               <%= f.label :content, "コメント" %><br />
+               <%= f.text_field :content, id:"comment_content" %>
+            </div>
+            <div class="actions">
+               <%= f.submit "送信する", class: :form__btn  %>
+            </div>
+          <% end %>
+        <% end %>
+      <% @comments.each do |comment| %>
+        <ul class="comments_lists">
+            <li class="comments_list">
+              <%= link_to comment.user.name, user_path(comment.user.id), class: :comment_user %>
+              <%= comment.content %>
+            </li>
+        </ul>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</main>

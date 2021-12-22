@@ -1,0 +1,21 @@
+<%= form_with model: @tweet, local: true do |f|%>
+  <div class="field">
+    <%= f.label :title, "タイトル" %><br />
+    <%= f.text_field :title, id:"tweet_title" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :concept, "コンセプト" %><br />
+    <%= f.text_area :concept, class: :form__text, id:"tweet_concept" %>
+  </div>
+
+  <div class="field">
+    <div id="previews"></div>
+    <%= f.label :image, "ツイートの画像" %><br />
+    <%= f.file_field :image, id:"tweet_image" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "保存する", class: :form__btn  %>
+  </div>
+<% end %>
